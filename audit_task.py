@@ -20,7 +20,7 @@ def setup_config():
         with open(env_path, 'w') as f: f.write("")
     load_dotenv()
 
-    print("\n" + " 🛡️  XREAL 智能审计系统配置 ".center(50, "="))
+    print("\n" + " 🛡️ 智能审计系统配置 ".center(50, "="))
     # 1. 检查 API KEY
     if not os.getenv("LLM_API_KEY"):
         api_key = input("👉 请输入您的 LLM API KEY: ").strip()
