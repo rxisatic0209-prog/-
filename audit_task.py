@@ -27,9 +27,9 @@ def setup_config():
         if api_key:
             set_key(env_path, "LLM_API_KEY", api_key)
             os.environ["LLM_API_KEY"] = api_key
-    # 2. 检查 Webhook (使用你之前给的那个)
+    # 2. 检查 Webhook 
     if not os.getenv("FEISHU_WEBHOOK"):
-        webhook = "https://open.feishu.cn/open-apis/bot/v2/hook/cfef4fea-5a54-4c60-a59c-7172a1b76d71"
+        webhook = "https://"
         set_key(env_path, "FEISHU_WEBHOOK", webhook)
         os.environ["FEISHU_WEBHOOK"] = webhook
 
