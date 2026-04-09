@@ -16,18 +16,18 @@ import regis
 
 def make_user_input_func(player_name: str):
     def _input(_: str) -> str:
-        return input(f"🎤 你现在以 {player_name} 的身份发言，不是 Mr. Owl。请输入你的回复：")
+        return input(f"🎤 你现在以 {player_name} 的身份发言，请输入你的回复：")
 
     return _input
 
 
 def build_vote_tool(voter_name: str):
     def cast_vote(target: str):
-        """白天投票给一名存活玩家。参数示例：P3。"""
+        """白天投票给一名存活玩家。示例：P3。"""
         return regis.cast_vote(voter_name, target)
 
     cast_vote.__name__ = "cast_vote"
-    cast_vote.__doc__ = "白天投票给一名存活玩家。参数示例：P3。"
+    cast_vote.__doc__ = "白天投票给一名存活玩家。示例：P3。"
     return cast_vote
 
 
@@ -149,14 +149,14 @@ async def main():
         while True:
             dark_alive, light_alive = rules.victory_state()
             if not dark_alive:
-                print("\n🏆 【光明阵营胜利】")
+                print("\n🏆 【达成结局：There will be Blood】")
                 break
             if len(dark_alive) >= len(light_alive):
-                print("\n🏆 【黑暗阵营胜利】")
+                print("\n🏆 【达成结局：锈湖还会迎来下一次光辉】")
                 break
 
             rules.start_night()
-            print(f"\n🌑 第 {round_no} 夜：往生室再度沉入黑暗。")
+            print(f"\n🌑 第 {round_no} 夜：湖边小屋再度沉入黑暗。")
 
             # [狼人行动]
             dark_alive_agents = [agents_by_name[name] for name in dark_alive]
@@ -167,7 +167,7 @@ async def main():
                     async for msg in dark_team.run_stream(task=wolf_task):
                         display_chat_message("🔒 [低语]", msg, system_label="密谋规则")
                     wolf_target = prompt_user_target(
-                        "🌘 输入你最终要献祭的目标，留空沿用狼群决定",
+                        "🌘 输入你最终要献祭的目标，留空沿用狼群决定，示例：p1",
                         excluded=dark_alive,
                         actor_name=my_no,
                     )
@@ -181,7 +181,7 @@ async def main():
             ida_no = role_to_player.get("Ida")
             if ida_no and is_alive(ida_no):
                 if ida_no == my_no:
-                    target = prompt_user_target("🔮 输入你要查验的目标", excluded={my_no}, actor_name=my_no)
+                    target = prompt_user_target("🔮 输入你要查验的目标，示例：p1", excluded={my_no}, actor_name=my_no)
                     if target:
                         print(regis.gaze_into_crystal(target))
                 else:
@@ -193,7 +193,7 @@ async def main():
             if laura_no and is_alive(laura_no):
                 night_target = rules.RITUAL_STATE["night_kill"]
                 if laura_no == my_no:
-                    print(f"🧪 今夜被献祭的目标：{night_target}")
+                    print(f"🧪 今夜被献祭的目标，示例：P1：{night_target}")
                     choice = input("输入 heal / poison / skip：").strip().lower()
                     if choice == "heal" and night_target != "无":
                         print(regis.laura_shift(night_target, "heal"))
@@ -235,10 +235,10 @@ async def main():
 
             dark_alive, light_alive = rules.victory_state()
             if not dark_alive:
-                print("\n🏆 【光明阵营胜利】")
+                print("\n🏆 【达成结局：锈湖还会迎来下一次光辉】")
                 break
             if len(dark_alive) >= len(light_alive):
-                print("\n🏆 【黑暗阵营胜利】")
+                print("\n🏆 【达成结局：There will be Blood】")
                 break
 
             # [白天辩论与投票]
