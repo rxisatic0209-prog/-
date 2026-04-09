@@ -29,6 +29,9 @@
 LLM_API_KEY=your_api_key
 LLM_BASE_URL=your_base_url
 LLM_MODEL_ID=your_model_id
+LLM_MAX_CONCURRENCY=1
+LLM_MAX_RETRIES=2
+LLM_RETRY_BASE_DELAY=2
 ```
 
 ## 安装依赖
