@@ -244,7 +244,11 @@ async def main():
             # [白天辩论与投票]
             rules.start_day()
             alive_agents = [agents_by_name[name] for name in rules.RITUAL_STATE["alive_players"]]
-            public_square = SelectorGroupChat(alive_agents + [god], model_client=model_client)
+            public_square = SelectorGroupChat(
+                alive_agents + [god],
+                model_client=model_client,
+                max_turns=max(10, len(alive_agents) * 2),
+            )
 
             cursed_player = rules.RITUAL_STATE["cursed_player"]
             if cursed_player != "无":
@@ -257,7 +261,7 @@ async def main():
                 "在自己发言末尾，使用 cast_vote 给一名存活玩家投票。"
                 "只能投给存活者，每人仅有一票。"
             )
-            async for msg in public_square.run_stream(task=debate_task, max_turns=max(10, len(alive_agents) * 2)):
+            async for msg in public_square.run_stream(task=debate_task):
                 if msg.content:
                     print()
                 display_chat_message("📢 [广场]", msg, system_label="仪式规则")
