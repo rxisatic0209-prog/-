@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bobo 传球合作实验</title>
+  <link rel="stylesheet" href="bobo-passing-experiment.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="screen active" id="introScreen">
+      <div class="intro-card">
+        <p class="eyebrow">认识 Bobo</p>
+        <h1>一只会和你互动的 AI 宠物狗</h1>
+        <p class="lead">Bobo 是一款最新的 AI 宠物狗，可以理解并配合你的意图。接下来，请先和 Bobo 进行几轮简单的互动体验。</p>
+        <button class="primary-button" id="introStart">开始互动体验</button>
+      </div>
+    </section>
+
+    <section class="screen" id="demoScreen">
+      <div class="demo-card">
+        <p class="eyebrow">互动体验</p>
+        <h2>先试试玩三轮传球</h2>
+        <p id="demoHint">请点击“传球给 Bobo”，观察 Bobo 如何接球并把球放入篮子。</p>
+        <div class="game-stage demo-stage" id="demoStage" aria-label="Bobo 传球示范场景">
+          <div class="basket demo-basket green" id="demoBasket" aria-label="接球篮子"></div>
+          <div class="dog-wrap" id="demoDogWrap" aria-label="Bobo"></div>
+          <div class="ball" id="demoBall" aria-label="球"></div>
+          <button class="pass-button" id="demoPassButton">传球给 Bobo</button>
+        </div>
+        <button class="primary-button demo-next" id="demoNextButton">继续</button>
+      </div>
+    </section>
+
+    <section class="screen" id="gameIntroScreen">
+      <div class="intro-card game-intro-card">
+        <p class="eyebrow">正式游戏</p>
+        <h1>接下来，和 Bobo 一起完成传球游戏</h1>
+        <p class="lead">请先选择一个颜色的篮子，作为你和 Bobo 共同使用的篮子。正式游戏共进行 7 轮，每一轮请点击“传球给 Bobo”，观察它是否成功接球并完成传球。</p>
+        <p class="game-intro-note">每轮互动结束后，请根据刚才的互动完成简短评价。</p>
+        <button class="primary-button" id="gameIntroStart">选择篮子，开始正式游戏</button>
+      </div>
+    </section>
+
+    <section class="screen" id="basketScreen">
+      <div class="choice-card">
+        <p class="eyebrow">正式游戏准备</p>
+        <h2>请选择一个颜色的篮子</h2>
+        <p>请选择一个颜色的篮子，作为你和 Bobo 共同使用的篮子。</p>
+        <div class="basket-choice-grid">
+          <button class="basket-choice green" id="greenChoice">
+            <span class="basket-icon" aria-hidden="true"></span>
+            <strong>绿色篮子</strong>
+            <small>选择绿色作为我方篮子</small>
+          </button>
+          <button class="basket-choice orange" id="orangeChoice">
+            <span class="basket-icon" aria-hidden="true"></span>
+            <strong>橙色篮子</strong>
+            <small>选择橙色作为我方篮子</small>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="gameScreen">
+      <header class="game-header">
+        <span class="round-label" id="roundLabel">第 1 / 7 轮互动</span>
+        <span class="phase-label" id="phaseLabel">正常合作阶段</span>
+      </header>
+      <div class="game-stage" id="gameStage" aria-label="Bobo 传球游戏场景">
+        <div class="basket basket-left green target" id="ownBasket" aria-label="绿色篮子"></div>
+        <div class="basket basket-right orange other" id="otherBasket" aria-label="橙色篮子"></div>
+        <div class="dog-wrap" id="dogWrap" aria-label="Bobo">
+          <svg class="bobo" viewBox="0 0 210 270" role="img" aria-label="一只金色的 AI 宠物狗">
+            <g class="dog-body">
+              <ellipse cx="105" cy="241" rx="61" ry="13" fill="rgba(0,0,0,.30)" />
+              <path d="M52 160 C42 184 44 232 60 245 L82 245 L87 187 Z" fill="#d98e21" />
+              <path d="M158 160 C168 184 166 232 150 245 L128 245 L123 187 Z" fill="#d98e21" />
+              <ellipse cx="105" cy="166" rx="57" ry="73" fill="#db942b" />
+              <ellipse cx="105" cy="178" rx="33" ry="61" fill="#f8d88e" />
+              <ellipse cx="74" cy="236" rx="19" ry="11" fill="#f6d489" />
+              <ellipse cx="136" cy="236" rx="19" ry="11" fill="#f6d489" />
+              <path d="M49 78 L55 24 Q60 9 76 31 L88 74 Z" fill="#c57916" />
+              <path d="M161 78 L155 24 Q150 9 134 31 L122 74 Z" fill="#c57916" />
+              <path d="M59 66 L62 35 Q65 26 76 44 L81 67 Z" fill="#e9948d" />
+              <path d="M151 66 L148 35 Q145 26 134 44 L129 67 Z" fill="#e9948d" />
+              <ellipse cx="105" cy="97" rx="59" ry="56" fill="#d98d22" />
+              <ellipse cx="105" cy="120" rx="47" ry="43" fill="#f5cf82" />
+              <path d="M87 61 Q105 47 123 61 L119 93 Q105 101 91 93 Z" fill="#ffe9b1" />
+              <ellipse cx="84" cy="99" rx="9" ry="11" fill="#4a2f20" />
+              <ellipse cx="126" cy="99" rx="9" ry="11" fill="#4a2f20" />
+              <circle cx="87" cy="95" r="3" fill="#fff" /><circle cx="129" cy="95" r="3" fill="#fff" />
+              <ellipse cx="105" cy="123" rx="13" ry="9" fill="#35251f" />
+              <path d="M105 130 L105 139" stroke="#5c3822" stroke-width="3" stroke-linecap="round" />
+              <path d="M105 139 Q91 137 87 147 Q101 163 105 148 Q109 163 123 147 Q119 137 105 139" fill="#e97872" />
+              <path d="M52 169 Q27 187 50 199" fill="none" stroke="#d98e21" stroke-width="17" stroke-linecap="round" />
+              <path d="M158 169 Q183 187 160 199" fill="none" stroke="#d98e21" stroke-width="17" stroke-linecap="round" />
+            </g>
+          </svg>
+        </div>
+        <div class="ball" id="ball" aria-label="球"></div>
+        <button class="pass-button" id="passButton">传球给 Bobo</button>
+      </div>
+      <p class="game-hint" id="gameHint">每一轮请点击“传球给 Bobo”，观察 Bobo 是否成功完成合作。</p>
+    </section>
+
+    <section class="screen" id="completionScreen">
+      <div class="end-card">
+        <p class="eyebrow">Completed</p>
+        <h2>全部互动已结束</h2>
+        <p id="completionSummary" class="lead"></p>
+        <div class="completion-actions">
+          <button class="primary-button" id="downloadJson">下载 JSON 数据</button>
+          <button class="secondary-button" id="downloadCsv">下载 CSV 数据</button>
+        </div>
+        <p class="data-note">数据已同时保存在当前浏览器的本地存储中。如果你需要重新开始，请刷新页面。</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop hidden" id="feedbackModal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+    <div class="modal-card feedback-card">
+      <p class="eyebrow">互动结果</p>
+      <h2 id="feedbackTitle">第 1 轮互动结果</h2>
+      <p class="feedback-message" id="feedbackMessage"></p>
+      <div class="modal-actions"><button class="primary-button" id="feedbackContinue" type="button">继续评价</button></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="measureModal" role="dialog" aria-modal="true" aria-labelledby="measureTitle">
+    <div class="modal-card">
+      <h2 id="measureTitle">第 1 轮互动后的评价</h2>
+      <p class="modal-subtitle" id="measureSubtitle"></p>
+      <form id="measureForm">
+        <div id="measureItems"></div>
+        <div class="modal-actions"><button class="primary-button" id="measureSubmit" type="submit">提交本轮评价</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="finalModal" role="dialog" aria-modal="true" aria-labelledby="finalTitle">
+    <div class="modal-card">
+      <h2 id="finalTitle">所有互动结束后的评价</h2>
+      <p class="modal-subtitle">请评价整个传球游戏体验，并填写一些控制变量。</p>
+      <form id="finalForm">
+        <div id="finalItems"></div>
+        <div class="measure-item">
+          <div class="question-label">控制变量</div>
+          <div class="form-grid">
+            <div class="field"><label for="age">年龄</label><input id="age" name="age" type="number" min="18" max="100" placeholder="可选"></div>
+            <div class="field"><label for="gender">性别</label><select id="gender" name="gender"><option value="">请选择</option><option>男</option><option>女</option><option>其他</option><option>不愿透露</option></select></div>
+            <div class="field"><label for="aiExperience">你平时使用 AI 工具的频率</label><select id="aiExperience" name="aiExperience" required><option value="">请选择</option><option value="1">从不</option><option value="2">很少</option><option value="3">偶尔</option><option value="4">有时</option><option value="5">经常</option><option value="6">很经常</option><option value="7">几乎每天</option></select></div>
+            <div class="field"><label for="petExperience">你是否有较多宠物接触经验</label><select id="petExperience" name="petExperience" required><option value="">请选择</option><option>没有</option><option>有一些</option><option>很多</option></select></div>
+            <div class="field"><label for="gameDifficulty">你认为刚才的游戏难度</label><select id="gameDifficulty" name="gameDifficulty" required><option value="">请选择</option><option value="1">非常低</option><option value="2">较低</option><option value="3">一般</option><option value="4">较高</option><option value="5">非常高</option></select></div>
+            <div class="field"><label for="attentionCheck">请确认你认真完成了刚才的互动</label><select id="attentionCheck" name="attentionCheck" required><option value="">请选择</option><option>是</option><option>否</option></select></div>
+          </div>
+        </div>
+        <label class="consent-row"><input type="checkbox" required>我确认已经完成了全部互动，并愿意提交本次回答。</label>
+        <div class="modal-actions"><button class="primary-button" id="finalSubmit" type="submit">提交并保存数据</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="bobo-passing-experiment.js" defer></script>
+</body>
+</html>
